@@ -180,7 +180,7 @@ const AdminSideBar = () => {
               setSelected={setSelected}
             />
             <Typography
-              varaint="h5"
+             variant="h5"
               sx={{ m: "15px 0 5px 25px " }}
               className="!text-[18px] text-black dark:text-white capitalise !font-[400] "
             >
@@ -201,7 +201,7 @@ const AdminSideBar = () => {
               setSelected={setSelected}
             />
             <Typography
-              varaint="h5"
+              variant="h5"
               sx={{ m: "15px 0 5px 25px " }}
               className="!text-[18px] text-black dark:text-white capitalise !font-[400] "
             >
@@ -224,7 +224,7 @@ const AdminSideBar = () => {
             />
 
             <Typography
-              varaint="h5"
+              variant="h5"
               sx={{ m: "15px 0 5px 25px " }}
               className="!text-[18px] text-black dark:text-white capitalise !font-[400] "
             >
@@ -252,7 +252,7 @@ const AdminSideBar = () => {
               setSelected={setSelected}
             />
             <Typography
-              varaint="h5"
+              variant="h5"
               sx={{ m: "15px 0 5px 25px " }}
               className="!text-[18px] text-black dark:text-white capitalise !font-[400] "
             >
@@ -267,7 +267,7 @@ const AdminSideBar = () => {
             />
 
             <Typography
-              varaint="h5"
+              variant="h5"
               sx={{ m: "15px 0 5px 25px " }}
               className="!text-[18px] text-black dark:text-white capitalise !font-[400] "
             >
@@ -296,7 +296,7 @@ const AdminSideBar = () => {
             />
 
             <Typography
-              varaint="h5"
+              variant="h5"
               sx={{ m: "15px 0 5px 25px " }}
               className="!text-[18px] text-black dark:text-white capitalise !font-[400] "
             >

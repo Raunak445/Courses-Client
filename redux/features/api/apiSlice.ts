@@ -1,5 +1,5 @@
 import { userLoggedIn } from "../auth/authSlice";
-import { refreshTokenOptions } from "./../../../../server/util/jwt";
+
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiSlice = createApi({

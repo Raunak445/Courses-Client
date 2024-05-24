@@ -31,6 +31,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const { data } = useSession();
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
   const [logout, setLogout] = useState(false);
+  
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
   });
@@ -51,6 +52,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
     }
 
     if (data === null) {
+
      setLogout(true)
     }
   }, [data, user]);
@@ -76,7 +78,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   // console.log("user is",user)
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative  dark:text-white text-black ">
       <div
         className={`${
           active
@@ -130,7 +132,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
 
       {openSidebar && (
         <div
-          className="fixed w-full h-screen top-0 left-0 z-[99999] dark:bg-[unset] bg-[#00000024] "
+          className="fixed w-full h-screen top-0 left-0 z-[99999] dark:bg-[unset] bg-[#00000024]"
           onClick={handleClose}
           id="screen"
         >

@@ -28,11 +28,12 @@ const CourseData: FC<Props> = ({
     setBenefits(updatedBenefits);
   };
 
-  const handlePrerequisitesChange=(index: number, value: any)=>{
+  const handlePrerequisitesChange = (index: number, value: any) => {
     const updatedPrerequisites = [...prerequisites];
-    updatedPrerequisites[index].title = value;
+    updatedPrerequisites[index]={...updatedPrerequisites[index],title:value}
+    // updatedPrerequisites[index].title = value;
     setPrerequisites(updatedPrerequisites);
-  }
+  };
 
   const handleAddBenefit = () => {
     setBenefits([...benefits, { title: "" }]);
@@ -42,23 +43,20 @@ const CourseData: FC<Props> = ({
     setPrerequisites([...prerequisites, { title: "" }]);
   };
 
-  const prevButton=()=>{
-    setActive(active-1)
+  const prevButton = () => {
+    setActive(active - 1);
+  };
 
-  }
-
-  const handleOptions=()=>{
-   if(benefits[benefits.length-1]?.title!=='' && prerequisites[prerequisites.length-1]?.title!=='') {
-    setActive(active+1)
-   }
-
-   else{
-    toast.error("Please fill the fields to go to next section")
-   }
-
-
-  }
-
+  const handleOptions = () => {
+    if (
+      benefits[benefits.length - 1]?.title !== "" &&
+      prerequisites[prerequisites.length - 1]?.title !== ""
+    ) {
+      setActive(active + 1);
+    } else {
+      toast.error("Please fill the fields to go to next section");
+    }
+  };
 
   return (
     <div className="w-[80%] m-auto mt-24 block">
@@ -69,7 +67,7 @@ const CourseData: FC<Props> = ({
 
         <br />
 
-        {benefits.map((benefits: any, index: number) => (
+        {benefits.map((benefit: any, index: number) => (
           <input
             type="text"
             key={index}
@@ -77,14 +75,25 @@ const CourseData: FC<Props> = ({
             placeholder="Please write the benefits of taking this course"
             required
             className={`${styles.input} my-2`}
-            value={benefits.title}
-            onChange={(e) => handleBenefitChange(index, e.target.value)}
+            value={benefit.title}
+            onChange={(e) => {
+              console.log("type", typeof benefit);
+              const value = e.target.value;
+              const updatedBenefits = [...benefits];
+              // console.log("title",updatedBenefits[index].title,updatedBenefits[index])
+              updatedBenefits[index] = {
+                ...updatedBenefits[index],
+                title: value,
+              };
+              setBenefits(updatedBenefits);
+            }}
           />
         ))}
 
         <AddCircleIcon
           style={{ margin: "10px 0px", cursor: "pointer", width: "30px" }}
           onClick={handleAddBenefit}
+          className="dark:text-white text-black"
         />
       </div>
 
@@ -111,24 +120,24 @@ const CourseData: FC<Props> = ({
         <AddCircleIcon
           style={{ margin: "10px 0px", cursor: "pointer", width: "30px" }}
           onClick={handleAddPrerequisites}
+          className="dark:text-white text-black"
         />
       </div>
 
-        <div className="w-full flex items-center justify-between">
-
-        <div className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center rounded mt-8 cursor-pointer"
-        onClick={()=>prevButton()}
+      <div className="w-full flex items-center justify-between">
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center rounded mt-8 cursor-pointer"
+          onClick={() => prevButton()}
         >
-        Prev
+          Prev
         </div>
-        <div className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center rounded mt-8 cursor-pointer"
-        onClick={()=>handleOptions()}
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center rounded mt-8 cursor-pointer"
+          onClick={() => handleOptions()}
         >
-        Next
+          Next
         </div>
-
-        </div>
-
+      </div>
     </div>
   );
 };

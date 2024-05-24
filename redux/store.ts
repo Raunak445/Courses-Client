@@ -19,12 +19,12 @@ export const store = configureStore({
 // Debugging statements
 console.log("Redux store created:", store.getState()); // Log initial state of the store
 
-//call refrehsh token funtion on every page reload
 
+// call the load user function on every page reload
 const intializeApp = async () => {
-  await store.dispatch(
-    apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })
-  );
+  // await store.dispatch(
+  //   apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })
+  // );
   await store.dispatch(
     apiSlice.endpoints.loadUser.initiate({}, { forceRefetch: true })
   );

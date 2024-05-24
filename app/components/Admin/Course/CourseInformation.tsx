@@ -1,6 +1,7 @@
 "use client";
 import React, { FC, useState } from "react";
 import { styles } from "@/app/styles/style";
+import toast from "react-hot-toast";
 
 type Props = {
   courseInfo: any;
@@ -18,7 +19,15 @@ const CourseInformation: FC<Props> = ({
   const [dragging, setDragging] = useState(false);
 
   const handleSubmit = (e: any) => {
+
     e.preventDefault();
+
+    if(courseInfo.thumbnail===''){
+      toast.error("Please provide thumbnail for course")
+      return ;
+      
+    }
+
     setActive(active + 1);
   };
 
@@ -199,6 +208,7 @@ const CourseInformation: FC<Props> = ({
             <input
               type="file"
               accept="image/*"
+             
               name=""
               id="file"
               className={`hidden`}
