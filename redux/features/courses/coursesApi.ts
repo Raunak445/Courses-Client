@@ -17,7 +17,7 @@ export const courseApi=apiSlice.injectEndpoints({
             query:()=>({
                 url:'get-admin-courses',
                 method:'GET',
-                credentials:'include' as const,
+                // credentials:'include' as const,
             })
         }),
         deleteCourses: builder.mutation({
