@@ -1,3 +1,4 @@
+'use client'
 import { useGetCourseDetailsQuery } from "@/redux/features/courses/coursesApi";
 import React, { useEffect, useState } from "react";
 import Loader from "../Loader";
@@ -11,6 +12,7 @@ import {
 } from "@/redux/features/orders/ordersApi";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 
 type Props = { id: string };
 
@@ -25,6 +27,8 @@ const CourseDetailsPage = ({ id }: Props) => {
 
   const { data, isLoading } = useGetCourseDetailsQuery(id);
   const { user } = useSelector((state: any) => state.auth);
+
+
   useEffect(() => {
     if (config) {
       const publishablekey = config?.publishableKey;
@@ -36,6 +40,13 @@ const CourseDetailsPage = ({ id }: Props) => {
       createPaymentIntent({amount,user});
     }
   }, [config, data]);
+
+
+  // const { data: userData } = useLoadUserQuery(undefined, {});
+  //   console.log("userData in details",userData)
+
+
+
 
   useEffect(() => {
     if (paymentIntentData) {
@@ -67,6 +78,7 @@ const CourseDetailsPage = ({ id }: Props) => {
               data={data?.course}
               stripePromise={stripePromise}
               clientSecret={clientSecret}
+              id={id}
             />
           )}
 

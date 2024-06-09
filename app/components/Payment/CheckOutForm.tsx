@@ -81,3 +81,16 @@ const CheckOutForm = ({ setOpen, data }: Props) => {
 };
 
 export default CheckOutForm;
+
+
+
+// {
+//   "error": {
+//   "code": "BAD_REQUEST_ERROR",
+//   "description": "The id provided does not exist",
+//   "source": "business",
+//   "step": "payment_initiation",
+//   "reason": "input_validation_failed",
+//   "metadata": {}
+//   }
+//   }

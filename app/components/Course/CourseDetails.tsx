@@ -7,18 +7,22 @@ import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { format } from "timeago.js";
 import CourseContentList from "../Course/CourseContentList";
-import {Elements} from '@stripe/react-stripe-js'
-import CheckOutForm from '../Payment/CheckOutForm'
+import { Elements } from "@stripe/react-stripe-js";
+import CheckOutForm from "../Payment/CheckOutForm";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
-type Props = {
+
+import RazorpayPaymentComponent from "@/app/admin/razorpay/RazorpayPaymentComponent";
+
+type Props = {  
   data: any;
   clientSecret: string;
   stripePromise: any;
+  id:string
 };
 
-const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
-  const {data:userData} =useLoadUserQuery(undefined,{})
-  const user=userData?.user
+const CourseDetails = ({ data, stripePromise, clientSecret,id }: Props) => {
+  const { data: userData } = useLoadUserQuery(undefined, {});
+  const user = userData?.user;
   const [open, setOpen] = useState(false);
 
   const discountPercentage =
@@ -27,7 +31,9 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
   const discountPercentagePrice = discountPercentage.toFixed(0);
 
   const isPurchased =
-    user && user?.course?.find((item: any) => item._id === data._id);
+    user && user?.courses?.find((item: any) => item._id === data._id);
+
+    // console.log("purchased",isPurchased)
 
   const handleOrder = () => {
     // console.log("clicked");
@@ -63,12 +69,16 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
                     Enter to Course
                   </Link>
                 ) : (
+                  
+                  
                   <div
                     className={`${styles.button} !w-[180px] my-3  font-Poppins cursor-pointer !bg-[crimson]`}
                     onClick={handleOrder}
                   >
                     Buy Now {data?.price} INR
                   </div>
+
+
                 )}
               </div>
               <br />
@@ -211,13 +221,21 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
                 />
               </div>
               <div className="w-full">
-                {
+                {/* {
                   stripePromise&& clientSecret &&(
                     <Elements
                     stripe={stripePromise} options={{clientSecret}}>
                       <CheckOutForm setOpen={setOpen} data={data} />
                     </Elements>
                   )
+                } */}
+
+                {
+                  stripePromise && clientSecret&&   
+                 ( <RazorpayPaymentComponent
+                 data={data}
+                 user={user}
+                />)
                 }
               </div>
             </div>

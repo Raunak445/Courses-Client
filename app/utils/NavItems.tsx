@@ -11,22 +11,25 @@ export const navItemsData = [
     name: "Home",
     url: "/",
   },
+  // {
+  //   name: "Courses",
+  //   url: "/courses",
+  // },
+  // {
+  //   name: "About",
+  //   url: "/about",
+  // },
+  
   {
-    name: "Courses",
-    url: "/courses",
-  },
-  {
-    name: "About",
-    url: "/about",
-  },
-  {
-    name: "Policy",
-    url: "/policy",
-  },
-  {
-    name: "FAQ",
+    name: "FAQs",
     url: "/faq",
   },
+  {
+    name:'Back To Main Page',
+    url:'https://wisdomkart.com'
+  }
+
+
 ];
 
 const NavItems: React.FC<Props> = ({ activeItem, isMobile }) => {
