@@ -265,7 +265,7 @@ const CourseContent: FC<Props> = ({
                           // const updatedData = [...courseContentData];
                           // updatedData[index].description = e.target.value;
 
-                          const updatedData = courseContentData.map((item, i) =>
+                          const updatedData = courseContentData.map((item:any, i:number) =>
                             i === index
                               ? { ...item, description: e.target.value }
                               : item
