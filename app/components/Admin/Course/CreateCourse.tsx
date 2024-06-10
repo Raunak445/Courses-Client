@@ -74,7 +74,7 @@ const CreateCourse = (props: Props) => {
       (courseContent) => ({
         videoUrl: courseContent.videoUrl,
         title: courseContent.title,
-        decription: courseContent.description,
+        description: courseContent.description,
         videoSection: courseContent.videoSection,
         links: courseContent.links.map((link) => ({
           title: link.title,

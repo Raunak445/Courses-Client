@@ -109,7 +109,7 @@ const EditCourse: FC<Props> = ({ id }) => {
       (courseContent) => ({
         videoUrl: courseContent.videoUrl,
         title: courseContent.title,
-        decription: courseContent.description,
+        description: courseContent.description,
         videoSection: courseContent.videoSection,
         links: courseContent.links.map((link) => ({
           title: link.title,
@@ -141,6 +141,8 @@ const EditCourse: FC<Props> = ({ id }) => {
   // console.log("CourseData",courseData)
   const handleCourseCreate = async (e: any) => {
     const data = courseData;
+    // console.log("data send to backend",data);
+
     await editCourse({id:editCourseData?._id,data})
   };
 

@@ -22,7 +22,7 @@ const Page = ({ params }: Props) => {
         redirect("/");
       }
 
-      if (!error) {
+      if (error) {
         redirect("/");
       }
     }
@@ -34,7 +34,7 @@ const Page = ({ params }: Props) => {
         <Loader />
       ) : (
         <div>
-          <CourseContent id={id} />
+          <CourseContent id={id}  user={data.user}/>
         </div>
       )}
     </>

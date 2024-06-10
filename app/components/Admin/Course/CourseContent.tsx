@@ -25,7 +25,7 @@ const CourseContent: FC<Props> = ({
     Array(courseContentData.length).fill(false)
   );
 
-  console.log("content",courseContentData)
+  console.log("content", courseContentData);
 
   const [activeSection, setActiveSection] = useState(1);
 
@@ -136,7 +136,7 @@ const CourseContent: FC<Props> = ({
           const showSectionInput =
             index === 0 ||
             item.videoSection !== courseContentData[index - 1].videoSection;
-            console.log("item",item.videoSection)
+          console.log("item", item.videoSection);
 
           return (
             <>
@@ -159,7 +159,10 @@ const CourseContent: FC<Props> = ({
                         onChange={(e: any) => {
                           console.log("clicked");
                           const updatedData = [...courseContentData];
-                          updatedData[index]={...updatedData[index],videoSection:e.target.value}
+                          updatedData[index] = {
+                            ...updatedData[index],
+                            videoSection: e.target.value,
+                          };
                           // updatedData[index].videoSection = e.target.value;
                           setCourseContentData(updatedData);
                         }}
@@ -223,7 +226,10 @@ const CourseContent: FC<Props> = ({
                         value={item.title}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
-                          updatedData[index]={... updatedData[index],title:e.target.value}
+                          updatedData[index] = {
+                            ...updatedData[index],
+                            title: e.target.value,
+                          };
                           // updatedData[index].title = e.target.value;
                           setCourseContentData(updatedData);
                         }}
@@ -256,8 +262,14 @@ const CourseContent: FC<Props> = ({
                         placeholder="Write the description of Video"
                         value={item.description}
                         onChange={(e) => {
-                          const updatedData = [...courseContentData];
-                          updatedData[index].description = e.target.value;
+                          // const updatedData = [...courseContentData];
+                          // updatedData[index].description = e.target.value;
+
+                          const updatedData = courseContentData.map((item, i) =>
+                            i === index
+                              ? { ...item, description: e.target.value }
+                              : item
+                          );
                           setCourseContentData(updatedData);
                         }}
                       />
@@ -291,9 +303,30 @@ const CourseContent: FC<Props> = ({
                           placeholder="Attached File Title ..."
                           value={link.title}
                           onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index].links[linkIndex].title =
-                              e.target.value;
+                            // const updatedData = [...courseContentData];
+                            // updatedData[index].links[linkIndex].title =
+                            //   e.target.value;
+
+                             // Step 1: Create a shallow copy of the courseContentData array
+                             const updatedData = [...courseContentData];
+
+                             // Step 2: Create a shallow copy of the specific object at the given index
+                             const updatedItem = { ...updatedData[index] };
+ 
+                             // Step 3: Create a shallow copy of the links array within that object
+                             const updatedLinks = [...updatedItem.links];
+ 
+                             // Step 4: Update the specific url within the links array
+                             updatedLinks[linkIndex] = {
+                               ...updatedLinks[linkIndex],
+                               title: e.target.value,
+                             };
+ 
+                             // Step 5: Assign the updated links array back to the updated item
+                             updatedItem.links = updatedLinks;
+ 
+                             // Step 6: Assign the updated item back to the copied array
+                             updatedData[index] = updatedItem;
                             {
                               /* Fixed the index reference here */
                             }
@@ -307,12 +340,31 @@ const CourseContent: FC<Props> = ({
                           placeholder="Attached Files ...(Provide url)"
                           value={link.url}
                           onChange={(e) => {
+                            // const updatedData = [...courseContentData];
+                            // updatedData[index].links[linkIndex].url =
+                            //   e.target.value;
+
+                            // Step 1: Create a shallow copy of the courseContentData array
                             const updatedData = [...courseContentData];
-                            updatedData[index].links[linkIndex].url =
-                              e.target.value;
-                            {
-                              /* Fixed the index reference here */
-                            }
+
+                            // Step 2: Create a shallow copy of the specific object at the given index
+                            const updatedItem = { ...updatedData[index] };
+
+                            // Step 3: Create a shallow copy of the links array within that object
+                            const updatedLinks = [...updatedItem.links];
+
+                            // Step 4: Update the specific url within the links array
+                            updatedLinks[linkIndex] = {
+                              ...updatedLinks[linkIndex],
+                              url: e.target.value,
+                            };
+
+                            // Step 5: Assign the updated links array back to the updated item
+                            updatedItem.links = updatedLinks;
+
+                            // Step 6: Assign the updated item back to the copied array
+                            updatedData[index] = updatedItem;
+
                             setCourseContentData(updatedData);
                           }}
                         />

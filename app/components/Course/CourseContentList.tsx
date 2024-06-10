@@ -29,6 +29,7 @@ const CourseContentList: FC<Props> = (props) => {
     setVisibleSections(newVisibleSections);
   };
 
+  console.log("here in list")
   return (
     <div
       className={`mt-[15px] w-full ${
