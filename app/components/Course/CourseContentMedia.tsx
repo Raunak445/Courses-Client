@@ -99,14 +99,14 @@ const CourseContentMedia = ({
       {activeBar === 2 && (
         <>
           <div className="flex w-full">
-            <Image
+            {/* <Image
               scr={
                 user?.avatar || avatar ? user.avatar.url || avatar : avatarIcon
               }
               width={50}
               height={50}
               alt="rounded-full"
-            />
+            /> */}
             <textarea
             name=''
             value={comment}
