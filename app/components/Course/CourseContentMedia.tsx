@@ -3,6 +3,7 @@ import CoursePlayer from "@/app/utils/CoursePlayer";
 import React, { useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import avatarIcon from "../../../public/Image/avatar.jpg";
+import Image from "next/image";
 type Props = {
   data: any;
   id: string;
