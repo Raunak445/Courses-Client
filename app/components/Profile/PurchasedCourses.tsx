@@ -13,8 +13,8 @@ const PurchasedCourses = (props: Props) => {
   useEffect(() => {
     
     if(data?.courses && user?.courses){
-      const purchasedCoureIds=user.courses.map((course)=>course._id);
-      const filteredCourses=data.courses.filter((course)=>purchasedCoureIds.includes(course._id))
+      const purchasedCoureIds=user.courses.map((course:any)=>course._id);
+      const filteredCourses=data.courses.filter((course:any)=>purchasedCoureIds.includes(course._id))
       setCourses(filteredCourses);
 
     }

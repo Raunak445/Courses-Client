@@ -25,10 +25,18 @@ const CourseDetails = ({ data, stripePromise, clientSecret,id }: Props) => {
   const user = userData?.user;
   const [open, setOpen] = useState(false);
 
-  const discountPercentage =
-    ((data?.estimatedPrice - data?.price) / data?.estimatedPrice) * 100;
+  // const discountPercentage =
+  //   ((data?.estimatedPrice - data?.price) / data?.estimatedPrice) * 100;
 
-  const discountPercentagePrice = discountPercentage.toFixed(0);
+  // const discountPercentagePrice = discountPercentage.toFixed(0);
+
+  const discountPercentage = 
+  ((data?.estimatedPrice - data?.price) / data?.estimatedPrice) * 100;
+
+// Convert to string with two decimal places
+const discountPercentagePrice = discountPercentage.toFixed(2);
+
+console.log("discountPercentagePrice",discountPercentagePrice)
 
   const isPurchased =
     user && user?.courses?.find((item: any) => item._id === data._id);
@@ -57,7 +65,7 @@ const CourseDetails = ({ data, stripePromise, clientSecret,id }: Props) => {
                 </h5>
 
                 <h4 className="pl-5 pt-4 text-[22px]  ">
-                  {discountPercentage}% Off
+                  {discountPercentagePrice}% Off
                 </h4>
               </div>
               <div className="flex items-center">
