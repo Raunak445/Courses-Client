@@ -41,7 +41,6 @@ type itemProps = {
   icon: JSX.Element;
   selected: string;
   setSelected: any;
-  onClick?:()=>void
 };
 
 const Item: FC<itemProps> = ({ title, to, icon, selected,setSelected }) => {
@@ -52,7 +51,7 @@ const Item: FC<itemProps> = ({ title, to, icon, selected,setSelected }) => {
       icon={icon}
     >
       <Typography className="!text-[16px] !font-Poppins">{title}</Typography>
-      {/* <Link href={to} /> */}
+      <Link href={to} />
     </MenuItem>
   );
 };
@@ -189,13 +188,13 @@ const AdminSideBar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
+            {/* <Item
               title="DashBoard"
               to="/admin"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             {/* <Typography
              variant="h5"
               sx={{ m: "15px 0 5px 25px " }}
@@ -336,7 +335,7 @@ const AdminSideBar = () => {
               icon={<ExitToAppIcon />}
               selected={selected}
               setSelected={setSelected}
-              onClick={()=>logOutHandler()}
+            
             />
             </div>
           </Box>
