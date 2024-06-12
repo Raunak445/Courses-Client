@@ -45,15 +45,16 @@ const RazorpayPaymentComponent = ({ user,data }) => {
     try {
       const key = "rzp_test_AehxyIGhRXKphi";
 
-      const { data: { order } } = await axios.post("http://localhost:8000/api/v1/checkout", {
+      const { data: { order } } = await axios.post("https://courses-server-wvn2.onrender.com/api/v1/checkout", {
         amount: 1000,
         user
       });
 
+      // console.log("key",process.env.NEXT_PUBLIC_RAZORPAY_KEY);
       
 
       const options = {
-        key: key,
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
         amount: order.amount,
         currency: "INR",
         name: "Wisdomkart",
@@ -62,7 +63,7 @@ const RazorpayPaymentComponent = ({ user,data }) => {
         order_id: order.id,
         handler: async (response) => {
           try {
-            const verifyUrl = "http://localhost:8000/api/v1/paymentverification";
+            const verifyUrl = "https://courses-server-wvn2.onrender.com/api/v1/paymentverification";
             const {data:VerifyData} = await axios.post(verifyUrl, response);
             
             // console.log("response from verifyUrl",res)
