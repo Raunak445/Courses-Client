@@ -43,7 +43,7 @@ const RazorpayPaymentComponent = ({ user,data }) => {
     
 
     try {
-      const key = "rzp_test_AehxyIGhRXKphi";
+      
 
       const { data: { order } } = await axios.post("https://courses-server-wvn2.onrender.com/api/v1/checkout", {
         amount: 1000,
