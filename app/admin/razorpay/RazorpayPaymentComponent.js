@@ -9,7 +9,7 @@ const RazorpayPaymentComponent = ({ user,data }) => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [createOrder, { data: orderData, error,isSuccess }] = useCreateOrderMutation();
   // const { data: refreshData, error: refreshError, isLoading: isRefreshLoading } = useRefreshTokenQuery();
-  
+  console.log("data in razorpay",data)
   useEffect(() => {
     const loadRazorpay = async () => {
       if (scriptLoaded) return; // Prevent loading the script again if already loaded
@@ -47,7 +47,7 @@ const RazorpayPaymentComponent = ({ user,data }) => {
       
 
       const { data: { order } } = await axios.post("https://courses-server-wvn2.onrender.com/api/v1/checkout", {
-        amount: 1000,
+        amount: data.price,
         user
       });
 
