@@ -7,6 +7,7 @@ import { useGetHeroDataQuery } from "../..//redux/features/layout/layoutApi";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Header from '../components/Header'
+import { redirect } from "next/navigation";
 
 type Props = {};
 
@@ -23,10 +24,12 @@ const FAQ = (props: Props) => {
   const {user}= useSelector((state:any)=>state.auth)
 
 
+
   useEffect(() => {
     if (data) {
       setQuestions(data.layout?.faq);
     }
+
   }, [data]);
 
   const toggleQuestion = (id: any) => {

@@ -8,9 +8,14 @@ import { FiEdit2 } from "react-icons/fi";
 import { useGetAllCoursesQuery } from "@/redux/features/courses/coursesApi";
 import Loader from "../../Loader";
 import { format } from "timeago.js";
-import { useDeleteUserMutation, useGetAllUsersQuery } from "@/redux/features/user/userApi";
+import {
+  useDeleteUserMutation,
+  useGetAllUsersQuery,
+  useUpdateUserRoleMutation,
+} from "@/redux/features/user/userApi";
 import { styles } from "../../../../app/styles/style";
 import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 
 type Props = {
@@ -20,40 +25,48 @@ type Props = {
 const AllUsers: FC<Props> = ({ isTeam }) => {
   const { theme, setTheme } = useTheme();
   const [active, setActive] = useState(false);
-  const { isLoading, data, refetch } = useGetAllUsersQuery(
+  const { isLoading, data, refetch,isError:dataFetchError } = useGetAllUsersQuery(
     {},
     { refetchOnMountOrArgChange: true }
   );
 
-  const [deleteUser,{isSuccess,error}]=useDeleteUserMutation({})
+  const [deleteUser, { isSuccess, error }] = useDeleteUserMutation({});
 
   const [open, setOpen] = useState(false);
   const [userId, setUserId] = useState("");
+  const [updateUserRole,{isSuccess:updateSuccess,error:updateError}]=useUpdateUserRoleMutation()
+  const [email,setEmail]=useState("")
+  const [role,setRole]=useState("admin")
 
-
-
-  useEffect(()=>{
-    if(isSuccess){
-        setOpen(false)
-        refetch()
-        toast.success("User deleted Successfully")
+  useEffect(() => {
+    if(dataFetchError){
+      redirect('/')
     }
-     if(error){
-        if("data" in error){
-            const errorMessage=error as any 
-            toast.error(errorMessage.data.message)
-        }
-     }
+    if (isSuccess) {
+      setOpen(false);
+      refetch();
+      toast.success("User deleted Successfully");
+      
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      
+       
+      }
+    }
+  }, [isSuccess, error,dataFetchError]);
 
-  },[isSuccess,error])
 
-  const handleDelete = async() => {
-    const id =userId
-    await deleteUser(id)
+
+  const handleDelete = async () => {
+    const id = userId;
+    await deleteUser(id);
   };
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.3 },
+    // { field: "id", headerName: "ID", flex: 0.3 },
     { field: "name", headerName: "Name", flex: 0.5 },
     { field: "email", headerName: "Email", flex: 1 },
     { field: "role", headerName: "Role", flex: 0.5 },
@@ -106,7 +119,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
 
   if (isTeam) {
     const newData =
-      data && data.users.filter((item: any) => item.role === "admin");
+      data && data.users.filter((item: any) => item.role !== "ad");
 
     newData &&
       newData.forEach((item: any) => {
@@ -133,7 +146,35 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
       });
   }
 
-  console.log("active",active)
+
+  useEffect(()=>{
+
+    if(updateError){
+     if("data" in updateError){
+      const errorMessage=updateError as any;
+      toast.error(errorMessage.data.message)
+      
+     }
+    }
+
+    if(updateSuccess){
+      toast.success("User role updated Successfully");
+      setActive(false);
+      refetch();
+    }
+
+  },[updateError,updateSuccess])
+
+  const handleSubmit=async()=>{
+    console.log("r",role)
+
+
+      await updateUserRole({email,role})
+    
+
+  }
+
+  // console.log("active", active);
 
   return (
     <div className="mt-[120px]">
@@ -141,14 +182,16 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         <Loader />
       ) : (
         <Box m="20px">
-         {isTeam && <div className="w-full flex justify-end">
-            <div
-              className={` ${styles.button} !w-[200px]`}
-              onClick={() => setActive(!active)}
-            >
-              Add New Member
+          {isTeam && (
+            <div className="w-full flex justify-end">
+              <div
+                className={` ${styles.button} !w-[200px]`}
+                onClick={() => setActive(!active)}
+              >
+                Add New Member
+              </div>
             </div>
-          </div>}
+          )}
           <Box
             m="40px 0 0"
             height="80vh"
@@ -178,7 +221,6 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                 borderBottom: "none",
                 backgroundColor: theme === "dark" ? "#3e4396" : "#A4A9FC",
               },
-
 
               "& .name-column--cell": {
                 color: theme === "dark" ? "#fff" : "#000",
@@ -210,7 +252,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
           {open && (
             <Modal
               open={open}
-              onClose={() => setOpen(!open)}
+              onClose={() => setActive(!open)}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
@@ -232,6 +274,42 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                     onClick={handleDelete}
                   >
                     Delete
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          )}
+
+          {active && (
+            <Modal
+              open={active}
+              onClose={() => setOpen(!active)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box className="absolute top-[50%]  left-[50%] -translate-x-1/2 -translate-y-1/2  bg-[#3e4396] p-[20px] rounded-[20px] ">
+                <h1 className={`${styles.title}`}>Add New Member</h1>
+                <div className="mt-4">
+                  <input
+                    type="email"
+                    value={email}
+                    placeholder="Enter email..."
+                    className={`${styles.input}`}
+                    onChange={(e)=>setEmail(e.target.value)}
+                  />
+
+                  <select name="" id="" className={`${styles.input} !mt-6`}
+                  value={role}
+                  onChange={(e)=>setRole(e.target.value)}
+                  >
+                    <option value="admin" className="text-black bg-blue-100">Admin</option>
+                    <option value="user" className="text-black bg-blue-100">User</option>
+                  </select>
+                  <br />
+                  <div className={`${styles.button} my-6 !h-[30px]`}
+                  onClick={()=>handleSubmit()}
+                  >
+                    Submit
                   </div>
                 </div>
               </Box>

@@ -25,11 +25,13 @@ const CourseContentMedia = ({
 
   return (
     <div className="w-[95%] 800px:w-[86%] py-6 m-auto dark:text-white text-black h-screen ">
+     
+     {data && 
       <CoursePlayer
         title={data[activeVideo]?.title}
         videoUrl={data[activeVideo]?.videoUrl}
       />
-
+     }
       <div className="w-full flex items-center justify-between my-3">
         <div
           className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset] ${
@@ -56,7 +58,7 @@ const CourseContentMedia = ({
         </div>
       </div>
 
-      <h1 className="pt-2 text-[25px] font-[600]">{data[activeVideo].title}</h1>
+      <h1 className="pt-2 text-[25px] font-[600]">{ data && data[activeVideo].title}</h1>
       <br />
 
       <div className="w-full p-4 flex items-center justify-between bg-slate-500 bg-opacity-20 backdrop-blur shadow-[bg-slate-700] rounded shadow-inner">
@@ -75,7 +77,7 @@ const CourseContentMedia = ({
       <br />
       {activeBar === 0 && (
         <p className="text-[18px] whitespace-pre-line mb-3">
-          {data[activeVideo]?.description}
+          { data && data[activeVideo]?.description}
           <br />
           <br />
         </p>
@@ -83,7 +85,7 @@ const CourseContentMedia = ({
 
       {activeBar === 1 && (
         <div className="min-h-20">
-          {data[activeVideo]?.links.map((item: any, index: number) => (
+          {data && data[activeVideo]?.links.map((item: any, index: number) => (
             <div className="mb-5 dark:text-white text-black" key={index}>
               <h2 className="800px:text-[20px] 800px:inline-block">
                 {item.title && item.title + " :"}

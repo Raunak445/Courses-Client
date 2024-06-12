@@ -1,4 +1,5 @@
-import { useRefreshTokenQuery } from '@/redux/features/api/apiSlice';
+// import { useRefreshTokenQuery } from '@/redux/features/api/apiSlice';
+"use client"
 import { useCreateOrderMutation } from '@/redux/features/orders/ordersApi';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -74,15 +75,14 @@ const RazorpayPaymentComponent = ({ user,data }) => {
               
               createOrder({ courseId: data._id});
 
-              redirect(`/course-acecess/${data._id}`)
-
-
             } else {
               console.log("Payment not received, please try again");
             }
           } catch (error) {
             console.log(error);
           }
+            //redirect cannot be inside a try catch block
+          redirect(`/course-acecess/${data._id}`)
         },
         notes: {
           address: "Razorpay Corporate Office",

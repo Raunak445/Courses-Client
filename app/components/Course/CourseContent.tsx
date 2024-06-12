@@ -35,11 +35,13 @@ const CourseContent = ({ id, user }: Props) => {
             setRoute={setRoute}
           />
           <div className="w-full grid 800px:grid-cols-10">
-            <Heading
-              title={data[activeVideo]?.title}
-              description="anything"
-              keywords={data[activeVideo]?.tags}
-            />
+            {data && data.length > 0 && activeVideo < data.length && (
+              <Heading
+                title={data[activeVideo]?.title}
+                description="anything"
+                keywords={data[activeVideo]?.tags}
+              />
+            )}
             <div className="col-span-7">
               <CourseContentMedia
                 data={data}

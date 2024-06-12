@@ -27,7 +27,7 @@ const EditFaq = (props: Props) => {
 
       // not refetching so added temporary solution
       // not when islayoutSuccess
-      window.location.reload()
+      // window.location.reload()
     }
 
   
@@ -43,7 +43,7 @@ const EditFaq = (props: Props) => {
       }
     }
 
-
+    refetch();
   }, [data,isLayoutSuccess,error]);
 
   const toggleQuestion = (id: any) => {

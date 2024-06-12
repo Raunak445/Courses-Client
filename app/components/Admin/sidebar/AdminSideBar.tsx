@@ -64,7 +64,7 @@ const AdminSideBar = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   
-  
+
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
   });
@@ -139,7 +139,7 @@ const AdminSideBar = () => {
                 ml="15px"
               >
                 <Link href="/">
-                  <h3 className="text-[25px] font-Poppins uppercase dark:text-white text-black ">
+                  <h3 className="text-[18px] font-Poppins uppercase dark:text-white text-black ">
                     {" "}
                     WisdomKart
                   </h3>
@@ -312,13 +312,13 @@ const AdminSideBar = () => {
               setSelected={setSelected}
             /> */}
 
-            <Typography
+            {/* <Typography
               variant="h5"
               sx={{ m: "15px 0 5px 25px " }}
               className="!text-[18px] text-black dark:text-white capitalise !font-[400] "
             >
               {!isCollapsed && "Extras"}
-            </Typography>
+            </Typography> */}
             {/* <Item
               title="Settings"
               to="/admin/settings"
@@ -327,7 +327,7 @@ const AdminSideBar = () => {
               setSelected={setSelected}
             /> */}
 
-            <div onClick={()=>logOutHandler()}>
+            {/* <div onClick={()=>logOutHandler()}>
 
             <Item
               title="Logout"
@@ -337,7 +337,7 @@ const AdminSideBar = () => {
               setSelected={setSelected}
             
             />
-            </div>
+            </div> */}
           </Box>
         </Menu>
       </ProSidebar>
