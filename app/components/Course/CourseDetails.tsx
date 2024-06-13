@@ -21,9 +21,15 @@ type Props = {
 };
 
 const CourseDetails = ({ data, stripePromise, clientSecret,id }: Props) => {
-  const { data: userData } = useLoadUserQuery(undefined, {});
+  const { data: userData,refetch } = useLoadUserQuery(undefined, {refetchOnMountOrArgChange:true});
   const user = userData?.user;
   const [open, setOpen] = useState(false);
+
+  const {user:loginData}=useSelector((state:any)=>state.auth);
+
+  useEffect(()=>{
+      refetch();
+  },[loginData])
 
   // const discountPercentage =
   //   ((data?.estimatedPrice - data?.price) / data?.estimatedPrice) * 100;
@@ -34,7 +40,7 @@ const CourseDetails = ({ data, stripePromise, clientSecret,id }: Props) => {
   ((data?.estimatedPrice - data?.price) / data?.estimatedPrice) * 100;
 
 // Convert to string with two decimal places
-const discountPercentagePrice = discountPercentage.toFixed(2);
+const discountPercentagePrice = discountPercentage.toFixed(0);
 
 console.log("discountPercentagePrice",discountPercentagePrice)
 
@@ -45,6 +51,13 @@ console.log("discountPercentagePrice",discountPercentagePrice)
 
   const handleOrder = () => {
     // console.log("clicked");
+
+    if(!user){
+      alert("Please login")
+      return ;
+    }
+
+    else
     setOpen(true);
   };
 
@@ -53,7 +66,7 @@ console.log("discountPercentagePrice",discountPercentagePrice)
       <div className="w-[90%] 800px:w-[90%] m-auto py-3 text-black dark:text-white">
         <div className="w-full flex flex-row-reverse 800px:flex-col">
           <div className="w-full 800px:w-[35%] relative  ">
-            <div className="sticky  top-[100px] left-0 z-50 w-full">
+            <div className="sticky  top-[100px] left-0 z-50 w-full mb-[20px]">
               <CoursePlayer videoUrl={data?.demoUrl} title={data?.title} />
               <div className="flex items-center">
                 <h1 className="pt-5 texts-[25px] ">

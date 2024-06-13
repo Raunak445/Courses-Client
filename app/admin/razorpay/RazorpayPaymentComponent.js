@@ -1,4 +1,3 @@
-// import { useRefreshTokenQuery } from '@/redux/features/api/apiSlice';
 "use client"
 import { useCreateOrderMutation } from '@/redux/features/orders/ordersApi';
 import axios from 'axios';
@@ -51,7 +50,7 @@ const RazorpayPaymentComponent = ({ user,data }) => {
         user
       });
 
-      // console.log("key",process.env.NEXT_PUBLIC_RAZORPAY_KEY);
+  
       
 
       const options = {
