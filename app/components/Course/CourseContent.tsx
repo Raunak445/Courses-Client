@@ -17,7 +17,7 @@ const CourseContent = ({ id, user }: Props) => {
   const [open, setOpen] = useState(false);
   const [route, setRoute] = useState("Login");
 
-  console.log("data in courseContent", data);
+  // console.log("data in courseContent", data);
 
   const [activeVideo, setActiveVideo] = useState(0);
 
@@ -51,7 +51,7 @@ const CourseContent = ({ id, user }: Props) => {
                 user={user}
               />
             </div>
-            <div className="hidden 800px:block 800px:col-span-3">
+            <div className="hidden 800px:block 800px:col-span-3 w-[20vw] absolute right-0">
               <CourseContentList
                 setActiveVideo={setActiveVideo}
                 data={data}

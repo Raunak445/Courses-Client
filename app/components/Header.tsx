@@ -35,29 +35,68 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
   });
+
+  // useEffect(() => {
+  //   if (!user) {
+  //     if (data) {
+  //       socialAuth({
+  //         email: data?.user?.email,
+  //         name: data?.user,
+  //         avatar: data?.user?.image,
+  //       });
+  //     }
+  //   }
+
+  //   if (data===null) {
+  //     if(isSuccess)
+  //     toast.success("Login Successfully");
+  //   }
+
+
+  //   // checking directly as this is causing problem 
+  //   // as when we relaod for sometime session is being relaoded at that time data is null
+  //   if (data === null) {
+  //    setLogout(true)
+  //   }
+
+
+  // }, [data, user]);
+
   useEffect(() => {
-    if (!user) {
-      if (data) {
-        socialAuth({
-          email: data?.user?.email,
-          name: data?.user,
-          avatar: data?.user?.image,
-        });
+    // Session states: loading, authenticated, or unauthenticated
+    const sessionStatus = data?.status || "loading"; // Assuming data contains a status property
+    
+    // console.log(sessionStatus)
+
+    if (sessionStatus === "loading") {
+      // Don't perform any actions while the session is still being checked
+      return;
+    }
+    
+    if (!user && sessionStatus === "authenticated") {
+      // User is logged in via social account, sync with Redux
+      socialAuth({
+        email: data?.user?.email,
+        name: data?.user?.name,
+        avatar: data?.user?.image,
+      });
+    }
+  
+    if (sessionStatus === "unauthenticated") {
+      // User is not logged in, but make sure we don't setLogout(true) unnecessarily
+      if (user) {
+        setLogout(true);
+      } else if (isSuccess) {
+        toast.success("Login Successfully");
       }
     }
+  }, [data, user, isSuccess, socialAuth]);
+  
 
-    if (data===null) {
-      if(isSuccess)
-      toast.success("Login Successfully");
-    }
 
-    if (data === null) {
 
-     setLogout(true)
-    }
-  }, [data, user]);
 
-  console.log(data);
+  // console.log(data);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {

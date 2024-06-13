@@ -32,7 +32,7 @@ const AllCourse = (props: Props) => {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
+    // { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title", headerName: "Course Title", flex: 1 },
     { field: "ratings", headerName: "Ratings", flex: 0.5 },
     { field: "purchased", headerName: "Purchased", flex: 0.5 },

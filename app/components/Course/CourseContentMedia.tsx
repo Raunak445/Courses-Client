@@ -57,11 +57,12 @@ const CourseContentMedia = ({
           Next Lesson
         </div>
       </div>
-
-      <h1 className="pt-2 text-[25px] font-[600]">{ data && data[activeVideo].title}</h1>
+      
+        <br />
+      <h1 className="text-[25px] font-[600] !min-h-[40px] dark:bg-black mt-[10px] text-center">{ data && data[activeVideo].title}</h1>
       <br />
 
-      <div className="w-full p-4 flex items-center justify-between bg-slate-500 bg-opacity-20 backdrop-blur shadow-[bg-slate-700] rounded shadow-inner">
+      <div className="w-full p-4 flex items-center justify-between bg-slate-900 bg-opacity-20 backdrop-blur shadow-[bg-slate-700] rounded shadow-inner text-black">
         {["Overview", "Resources", "Q&A", "Reviews"].map((text, index) => (
           <h5
             key={index}
@@ -75,8 +76,10 @@ const CourseContentMedia = ({
         ))}
       </div>
       <br />
+
+      <div className="bg-slate-900 min-h-[200px]">
       {activeBar === 0 && (
-        <p className="text-[18px] whitespace-pre-line mb-3">
+        <p className="text-[18px] whitespace-pre-line mb-3 ml-2">
           { data && data[activeVideo]?.description}
           <br />
           <br />
@@ -123,11 +126,12 @@ const CourseContentMedia = ({
         </>
       )}
 
+      {/* <br />
       <br />
       <br />
       <br />
-      <br />
-      <br />
+      <br /> */}
+    </div>
     </div>
   );
 };

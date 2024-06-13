@@ -13,12 +13,19 @@ const Page = ({ params }: Props) => {
   const id = params.id;
   const { isLoading, error, data } = useLoadUserQuery(undefined, {});
 
+  // console.log("user in course access",data)
+
+ 
+
   useEffect(() => {
     if (data) {
       const isPurchased = data.user.courses.find(
         (item: any) => item._id === id
       );
-      if (!isPurchased) {
+
+      const role=data.user.role
+
+      if (!isPurchased || role!='admin') {
         redirect("/");
       }
 
