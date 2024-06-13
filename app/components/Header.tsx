@@ -28,7 +28,8 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
-  const { data } = useSession();
+  // const { data } = useSession();
+  const { data: session, status } = useSession(); // Destructuring session and status from useSession
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
   const [logout, setLogout] = useState(false);
   
@@ -63,26 +64,21 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   // }, [data, user]);
 
   useEffect(() => {
-    // Session states: loading, authenticated, or unauthenticated
-    const sessionStatus = data?.status || "loading"; // Assuming data contains a status property
-    
-    // console.log(sessionStatus)
-
-    if (sessionStatus === "loading") {
+    if (status === "loading") {
       // Don't perform any actions while the session is still being checked
       return;
     }
     
-    if (!user && sessionStatus === "authenticated") {
+    if (!user && status === "authenticated") {
       // User is logged in via social account, sync with Redux
       socialAuth({
-        email: data?.user?.email,
-        name: data?.user?.name,
-        avatar: data?.user?.image,
+        email: session?.user?.email,
+        name: session?.user?.name,
+        avatar: session?.user?.image,
       });
     }
   
-    if (sessionStatus === "unauthenticated") {
+    if (status === "unauthenticated") {
       // User is not logged in, but make sure we don't setLogout(true) unnecessarily
       if (user) {
         setLogout(true);
@@ -90,7 +86,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
         toast.success("Login Successfully");
       }
     }
-  }, [data, user, isSuccess, socialAuth]);
+  }, [session, status, user, isSuccess, socialAuth]);
   
 
 
