@@ -29,7 +29,7 @@ const CourseDetails = ({ data, stripePromise, clientSecret,id }: Props) => {
 
   useEffect(()=>{
       refetch();
-  },[loginData])
+  },[])
 
   // const discountPercentage =
   //   ((data?.estimatedPrice - data?.price) / data?.estimatedPrice) * 100;
