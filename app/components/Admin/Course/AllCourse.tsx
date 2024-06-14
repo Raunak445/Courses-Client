@@ -1,7 +1,7 @@
 "use client";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiFillEye, AiOutlineDelete } from "react-icons/ai";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Modal } from "@mui/material";
 import { FiEdit2 } from "react-icons/fi";
@@ -15,6 +15,9 @@ import { format } from "timeago.js";
 import toast from "react-hot-toast";
 import { styles } from "../../../../app/styles/style";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+
+
 
 type Props = {};
 
@@ -44,8 +47,25 @@ const AllCourse = (props: Props) => {
       renderCell: (params: any) => {
         return (
           <>
-            <Link  href={`/admin/edit-course/${params.row.id}`}>
-              <FiEdit2 className="darK:text-white text-black" size={20} />
+            <Link  href={`/admin/edit-course/${params.row.id}`} >
+              <FiEdit2 className="dark:text-white text-black text-centre mt-[15px]" size={20} />
+            </Link>
+          </>
+        );
+      },
+    },
+    {
+      field: "_",
+      headerName: "Preview",
+      flex: 0.5,
+      renderCell: (params: any) => {
+        return (
+          <>
+           <Link  href={`/course-access/${params.row.id}`}>
+              <AiFillEye
+                className="dark:text-white text-black mt-[15px] ml-[15px]"
+                size={20}
+              />
             </Link>
           </>
         );
@@ -65,7 +85,7 @@ const AllCourse = (props: Props) => {
               }}
             >
               <AiOutlineDelete
-                className="darK:text-white text-black"
+                className="dark:text-white text-black"
                 size={20}
               />
             </Button>

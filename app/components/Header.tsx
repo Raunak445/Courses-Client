@@ -80,9 +80,11 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   
     if (status === "unauthenticated") {
       // User is not logged in, but make sure we don't setLogout(true) unnecessarily
-      if (user) {
-        setLogout(true);
-      } else if (isSuccess) {
+      // if (user) {
+      //   setLogout(true);
+      // } 
+      
+       if (isSuccess) {
         toast.success("Login Successfully");
       }
     }

@@ -23,9 +23,13 @@ const Profile: FC<Props> = ({ user }) => {
   const logOutHandler = async () => {
     // console.log("Logout handler called")
     setLogout(true);
+
+    
+
     // to remove session which is part of social auth
     await signOut();
   };
+
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
