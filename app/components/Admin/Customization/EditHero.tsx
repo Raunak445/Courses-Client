@@ -115,7 +115,8 @@ const EditHero: FC<Props> = () => {
         onChange={(e)=>setSubTitle(e.target.value)}
         placeholder="Improve you business management knowledge from us"
         className="dark:text-white resize-none text-[#000000c7] text-[18px] px-3 w-[80%] 1000px:text-[20px] 1500px:text-[25px] font-Poppins border border-black dark:border-white "
-        ></textarea>
+        />
+        {/* </textarea> */}
 
 
         </div>

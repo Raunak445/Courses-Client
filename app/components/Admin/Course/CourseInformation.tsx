@@ -105,9 +105,9 @@ const CourseInformation: FC<Props> = ({
             onChange={(e: any) => {
               setCourseInfo({ ...courseInfo, description: e.target.value });
             }}
-          >
+          />
             {" "}
-          </textarea>
+          {/* </textarea> */}
           <br />
 
           <div className="w-full flex justify-between ">
