@@ -1,8 +1,6 @@
 
 import { apiSlice } from "../api/apiSlice";
 
-
-
 export const courseApi=apiSlice.injectEndpoints({
     endpoints:(builder)=>({
         createCourse:builder.mutation({
@@ -64,4 +62,4 @@ export const courseApi=apiSlice.injectEndpoints({
 })
 
 
-export const {useCreateCourseMutation,useGetAllCoursesQuery,useDeleteCoursesMutation,useEditCourseMutation,useGetUsersAllCourseQuery,useGetCourseDetailsQuery,useGetCourseContentQuery }=courseApi
+export const {useCreateCourseMutation,useGetAllCoursesQuery,useDeleteCoursesMutation,useEditCourseMutation,useGetUsersAllCourseQuery,useGetCourseDetailsQuery,useGetCourseContentQuery}=courseApi

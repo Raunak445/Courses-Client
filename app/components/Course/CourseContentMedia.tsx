@@ -23,6 +23,11 @@ const CourseContentMedia = ({
   const [activeBar, setActiveBar] = useState(0);
   const [comment, setComment] = useState("");
 
+  // console.log("data in courseContentMedia",data);
+  const isPrevDisabled = activeVideo === 0;
+  const isNextDisabled = activeVideo === data.length - 1;
+
+
   return (
     <div className="w-[95%] 800px:w-[86%] py-6 m-auto dark:text-white text-black h-screen ">
      
@@ -33,29 +38,27 @@ const CourseContentMedia = ({
       />
      }
       <div className="w-full flex items-center justify-between my-3">
-        <div
-          className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset] ${
-            activeVideo === 0 && "cursor-no-drop opacity-[.8]"
-          } `}
-          onClick={() =>
-            setActiveVideo(activeVideo === 0 ? 0 : activeVideo - 1)
-          }
+        <button
+           className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset] ${
+            isPrevDisabled && "cursor-not-allowed opacity-50"
+          }`}
+          onClick={() => !isPrevDisabled && setActiveVideo(activeVideo - 1)}
+          disabled={isPrevDisabled}
         >
           <AiOutlineArrowLeft className="mr-2" />
           Prev Lesson
-        </div>
+        </button>
 
-        <div
+        <button
           className={`${styles.button} !w-[unset] !min-h-[40px] !py-[unset] ${
-            activeVideo === 0 && "cursor-no-drop opacity-[.8]"
-          } `}
-          onClick={() =>
-            setActiveVideo(activeVideo === 0 ? 0 : activeVideo - 1)
-          }
+            isNextDisabled && "cursor-not-allowed opacity-50"
+          }`}
+          onClick={() => !isNextDisabled && setActiveVideo(activeVideo + 1)}
+          disabled={isNextDisabled}
         >
           <AiOutlineArrowRight className="mr-2" />
           Next Lesson
-        </div>
+        </button>
       </div>
       
         <br />
