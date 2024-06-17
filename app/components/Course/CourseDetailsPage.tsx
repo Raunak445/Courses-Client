@@ -79,6 +79,7 @@ const CourseDetailsPage = ({ id }: Props) => {
               stripePromise={stripePromise}
               clientSecret={clientSecret}
               id={id}
+              setPaymentModal={setOpen}
             />
           )}
 

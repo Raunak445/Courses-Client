@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { redirect } from "next/navigation";
 
-const RazorpayPaymentComponent = ({ user,data }) => {
+const RazorpayPaymentComponent = ({ user,data,setPaymentModal }) => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [createOrder, { data: orderData, error,isSuccess }] = useCreateOrderMutation();
   // const { data: refreshData, error: refreshError, isLoading: isRefreshLoading } = useRefreshTokenQuery();
@@ -71,6 +71,7 @@ const RazorpayPaymentComponent = ({ user,data }) => {
             if (VerifyData.success) {
               console.log("reached in success condition")
               console.log("courseId",data._id)
+              setPaymentModal(false);
               
               createOrder({ courseId: data._id});
 

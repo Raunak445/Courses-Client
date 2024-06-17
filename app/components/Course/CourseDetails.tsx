@@ -17,7 +17,9 @@ type Props = {
   data: any;
   clientSecret: string;
   stripePromise: any;
-  id:string
+  id:string,
+  setPaymentModal:any
+  // setOpen:any
 };
 
 const CourseDetails = ({ data, stripePromise, clientSecret,id }: Props) => {
@@ -256,6 +258,7 @@ console.log("discountPercentagePrice",discountPercentagePrice)
                  ( <RazorpayPaymentComponent
                  data={data}
                  user={user}
+                 setPaymentModal={setPaymentModal}
                 />)
                 }
               </div>
