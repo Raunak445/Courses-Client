@@ -22,7 +22,7 @@ type Props = {
   // setOpen:any
 };
 
-const CourseDetails = ({ data, stripePromise, clientSecret,id }: Props) => {
+const CourseDetails = ({ data, stripePromise, clientSecret,id,setPaymentModal }: Props) => {
   const { data: userData,refetch } = useLoadUserQuery(undefined, {refetchOnMountOrArgChange:true});
   const user = userData?.user;
   const [open, setOpen] = useState(false);
@@ -44,7 +44,7 @@ const CourseDetails = ({ data, stripePromise, clientSecret,id }: Props) => {
 // Convert to string with two decimal places
 const discountPercentagePrice = discountPercentage.toFixed(0);
 
-console.log("discountPercentagePrice",discountPercentagePrice)
+// console.log("discountPercentagePrice",discountPercentagePrice)
 
   const isPurchased =
     user && user?.courses?.find((item: any) => item._id === data._id);

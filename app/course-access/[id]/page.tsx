@@ -4,6 +4,7 @@ import Loader from "@/app/components/Loader";
 import { useLoadUserQuery } from "../../../redux/features/api/apiSlice";
 import { redirect } from "next/navigation";
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 type Props = {
   params: any;
@@ -11,19 +12,28 @@ type Props = {
 
 const Page = ({ params }: Props) => {
   const id = params.id;
-  const { isLoading, error, data } = useLoadUserQuery(undefined, {});
-
+  const { isLoading, error, data,refetch } = useLoadUserQuery(undefined, {refetchOnMountOrArgChange:true});
+  
+  const {user}=useSelector((state:any)=>state.auth)
   // console.log("user in course access",data)
 
  
 
   useEffect(() => {
+    if(user){
+      refetch();
+    };
+
     if (data) {
       const isPurchased = data.user.courses.find(
         (item: any) => item._id === id
       );
 
-      const role=data.user.role
+      // console.log(isPurchased)
+
+      // const role=data.user.role
+
+      
 
       if (!isPurchased) {
         redirect("/");
@@ -33,7 +43,7 @@ const Page = ({ params }: Props) => {
         redirect("/");
       }
     }
-  }, [data, error]);
+  }, [data, error,user]);
 
   return (
     <>
