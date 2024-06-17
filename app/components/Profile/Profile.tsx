@@ -27,7 +27,8 @@ const Profile: FC<Props> = ({ user }) => {
     
 
     // to remove session which is part of social auth
-    await signOut();
+    // await signOut();
+    
   };
 
 

@@ -12,7 +12,7 @@ type Props = {
 
 const Page = ({ params }: Props) => {
   const id = params.id;
-  const { isLoading, error, data,refetch } = useLoadUserQuery(undefined, {refetchOnMountOrArgChange:true});
+  const { isLoading, error, data } = useLoadUserQuery(undefined, {});
   
   const {user}=useSelector((state:any)=>state.auth)
   // console.log("user in course access",data)
@@ -20,10 +20,6 @@ const Page = ({ params }: Props) => {
  
 
   useEffect(() => {
-    if(user){
-      refetch();
-    };
-
     if (data) {
       const isPurchased = data.user.courses.find(
         (item: any) => item._id === id

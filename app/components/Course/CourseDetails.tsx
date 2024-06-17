@@ -2,7 +2,7 @@ import { styles } from "@/app/styles/style";
 import CoursePlayer from "@/app/utils/CoursePlayer";
 import Rating from "@/app/utils/Rating";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { format } from "timeago.js";
@@ -23,15 +23,23 @@ type Props = {
 };
 
 const CourseDetails = ({ data, stripePromise, clientSecret,id,setPaymentModal }: Props) => {
-  const { data: userData,refetch } = useLoadUserQuery(undefined, {refetchOnMountOrArgChange:true});
+  const { data: userData, refetch: refetchUserData } = useLoadUserQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+  const [hasFetchedUserData, setHasFetchedUserData] = useState(false);
+
+  const { user: loginData } = useSelector((state: any) => state.auth);
   const user = userData?.user;
   const [open, setOpen] = useState(false);
 
-  const {user:loginData}=useSelector((state:any)=>state.auth);
 
-  useEffect(()=>{
-      refetch();
-  },[])
+  useEffect(() => {
+    if (loginData && !hasFetchedUserData) {
+      refetchUserData();
+      setHasFetchedUserData(true); // Ensure this fetch happens only once
+    }
+  }, [loginData, hasFetchedUserData, refetchUserData]);
+
 
   // const discountPercentage =
   //   ((data?.estimatedPrice - data?.price) / data?.estimatedPrice) * 100;
@@ -53,12 +61,10 @@ const discountPercentagePrice = discountPercentage.toFixed(0);
 
   const handleOrder = () => {
     // console.log("clicked");
-
     if(!user){
       alert("Please login")
       return ;
     }
-
     else
     setOpen(true);
   };
