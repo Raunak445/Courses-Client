@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import SidebarProfile from "./SidebarProfile";
 import { useLogOutQuery } from "../../../redux/features/auth/authApi";
 import { signOut } from "next-auth/react";
@@ -19,18 +19,26 @@ const Profile: FC<Props> = ({ user }) => {
   
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
+   
   });
+
+
+  useEffect(()=>{
+  
+  },[logout])
+
   const logOutHandler = async () => {
     // console.log("Logout handler called")
     setLogout(true);
-
+    console.log("clicked ")
+    // console.log("value inside",logout)
     
-
     // to remove session which is part of social auth
     // await signOut();
     
   };
 
+  // console.log("value after",logout)
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
