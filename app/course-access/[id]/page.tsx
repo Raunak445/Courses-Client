@@ -25,7 +25,7 @@ const Page = ({ params }: Props) => {
 
       const role=data.user.role
 
-      if (!isPurchased || role!='admin') {
+      if (!isPurchased) {
         redirect("/");
       }
 
