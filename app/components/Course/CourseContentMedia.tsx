@@ -297,7 +297,7 @@ const CommentItem = ({
   questionId
 }: any) => {
   const [replyActive, setReplyActive] = useState(false);
-
+  console.log("item",item)
   return (
     <>
       <div className="my-4 dark:bg-slate-900 bg-gray-200 p-[10px] ">
@@ -332,6 +332,7 @@ const CommentItem = ({
         </div>
 
         <div className="w-full flex">
+         
           <span
             className="800px:pl-16 text-black dark:text-[#ffffff83] cursor-pointer mr-2 "
             onClick={() => {
@@ -354,7 +355,7 @@ const CommentItem = ({
         </div>
         {replyActive && (
           <>
-            {item.questionReplies.map((item: any, index: any) => {
+            {item.questionReplies.map((eachItem: any, index: any) => {
               return (
                 <div
                   className="w-full flex 800px:ml-16 my-5 text-black dark:text-white"
@@ -362,7 +363,7 @@ const CommentItem = ({
                 >
                   <div>
                     <Image
-                      src={item.user?.avatar ? item.user.avatar : avatarIcon}
+                      src={eachItem.user?.avatar ? eachItem.user.avatar : avatarIcon}
                       alt="Profile Image"
                       width={30}
                       height={30}
@@ -373,9 +374,9 @@ const CommentItem = ({
                   <div className="pl-2">
                    <div className="flex items-center">
                    <h5 className="text-[20px]">{item.user.name}</h5>
-                  { item.user.role ==='admin'&& <VscVerifiedFilled className="text-[#50c750] ml-2 text-[20px] "/>}
+                  { eachItem.user.role ==='admin' &&<VscVerifiedFilled className="text-[#50c750] ml-2 text-[20px] "/>}
                    </div>
-                    <p>{item.answer}</p>
+                    <p>{eachItem.answer}</p>
                     <small className="text-[#ffffff83]">
                       {format(item.createdAt)}
                     </small>
