@@ -404,7 +404,7 @@ const CourseContentMedia = ({
               <div className="w-full">
                 {(course?.reviews && [...course.reviews].reverse())?.map(
                   (item: any, index: number) => (
-                    <div className="w-full my-5 dark:text-white text-black">
+                    <div className="w-full my-5 dark:text-white text-black" key={index}>
                       <div className="w-full flex">
                         <div>
                           <Image
@@ -462,7 +462,7 @@ const CourseContentMedia = ({
                       )}
 
                       {item.commentReplies.map((i: any, index: number) => (
-                        <div className="w-full flex  800px:ml-16 my-5">
+                        <div className="w-full flex  800px:ml-16 my-5" key={index}>
                           <div>
                             <Image
                               src={i.user?.avatar ? i.user.avatar : avatarIcon}
