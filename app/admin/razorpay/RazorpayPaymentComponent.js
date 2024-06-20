@@ -3,11 +3,14 @@ import { useCreateOrderMutation } from '@/redux/features/orders/ordersApi';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { redirect } from "next/navigation";
+import { useRouter } from 'next/navigation'
+
 
 const RazorpayPaymentComponent = ({ user,data,setPaymentModal }) => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [createOrder, { data: orderData, error,isSuccess }] = useCreateOrderMutation();
   // const { data: refreshData, error: refreshError, isLoading: isRefreshLoading } = useRefreshTokenQuery();
+  const router = useRouter()
   console.log("data in razorpay",data)
   useEffect(() => {
     const loadRazorpay = async () => {
@@ -82,7 +85,8 @@ const RazorpayPaymentComponent = ({ user,data,setPaymentModal }) => {
             console.log(error);
           }
             //redirect cannot be inside a try catch block
-          redirect(`/course-acecess/${data._id}`)
+          // redirect(`/course-acecess/${data._id}`)
+          router.push(`/course-acecess/${data._id}`)
         },
         notes: {
           address: "Razorpay Corporate Office",
