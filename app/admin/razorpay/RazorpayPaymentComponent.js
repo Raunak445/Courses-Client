@@ -86,7 +86,7 @@ const RazorpayPaymentComponent = ({ user,data,setPaymentModal }) => {
           }
             //redirect cannot be inside a try catch block
           // redirect(`/course-acecess/${data._id}`)
-          router.push(`/course-acecess/${data._id}`)
+          router.push(`/course-access/${data._id}`)
         },
         notes: {
           address: "Razorpay Corporate Office",
